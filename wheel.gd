@@ -7,13 +7,22 @@ extends Node2D
 #            dark red,          red,              purple,           dark purple,      dark blue,        blue,              turquoise,        dark turquoise,    dark green,         green,              yellow,            orange,           dark orange,      blood red 
 var colors = [Color("#C0392B"), Color("#E74C3C"), Color("#9b59b6"), Color("#8e44ad"), Color("#2980b9"), Color("#3498db"),  Color("#1abc9c"), Color("#16a085"),  Color("#27ae60"),   Color("#2ecc71"),   Color("#f1c40f"),  Color("#f39c12"), Color("#e67e22"), Color("#d35400")] 
 
-var font = preload('res://assets/fonts/Roboto-Regular.ttf')
+var font = preload('res://assets/fonts/Virgil.woff2')
 var labels: Array[Label] = []
 
 func _ready():
-	# mix colors
+	update_labels()
+	
+func update_labels():
+	print("update labels")
 	colors.shuffle()
 	# Create new Labels
+	
+	if labels.size() > 0:
+		for label in labels:
+			remove_child(label)
+			
+		labels = []
 
 	for option in wheel_of_fortune.options:
 		var label = Label.new()

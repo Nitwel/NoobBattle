@@ -1,56 +1,84 @@
 extends Node2D
 class_name Map
 
-enum MOVE_NODES {start, good_1, bad_1, battle_1, shop_1, nothing_1, slot_1, nothing_2, good_2, battle_2, surprise, bad_2, slot_2, slot_3, shop_2, jackpot}
+enum NODES {start, good_1, bad_1, battle_1, shop_1, nothing_1, slot_1, nothing_2, good_2, battle_2, surprise, bad_2, slot_2, slot_3, shop_2, jackpot}
 
 var MOVE_EDGES = [
-	[MOVE_NODES.start, MOVE_NODES.good_1],
-	[MOVE_NODES.good_1, MOVE_NODES.battle_1],
-	[MOVE_NODES.battle_1, MOVE_NODES.nothing_1],
-	[MOVE_NODES.battle_1, MOVE_NODES.slot_1],
-	[MOVE_NODES.slot_1, MOVE_NODES.bad_2],
-	[MOVE_NODES.battle_1, MOVE_NODES.slot_2],
-	[MOVE_NODES.slot_2, MOVE_NODES.shop_2],
-	[MOVE_NODES.shop_2, MOVE_NODES.jackpot],
-	[MOVE_NODES.start, MOVE_NODES.bad_1],
-	[MOVE_NODES.bad_1, MOVE_NODES.shop_1],
-	[MOVE_NODES.bad_1, MOVE_NODES.nothing_2],
-	[MOVE_NODES.nothing_2, MOVE_NODES.surprise],
-	[MOVE_NODES.nothing_2, MOVE_NODES.battle_2],
-	[MOVE_NODES.shop_1, MOVE_NODES.battle_2],
-	[MOVE_NODES.shop_1, MOVE_NODES.good_2],
-	[MOVE_NODES.battle_2, MOVE_NODES.good_2],
-	[MOVE_NODES.good_2, MOVE_NODES.slot_3],
-	[MOVE_NODES.slot_3, MOVE_NODES.shop_2],
-
-	[MOVE_NODES.start, MOVE_NODES.good_1],
-	[MOVE_NODES.start, MOVE_NODES.good_1],
+	[NODES.start, NODES.good_1],
+	[NODES.good_1, NODES.battle_1],
+	[NODES.battle_1, NODES.nothing_1],
+	[NODES.battle_1, NODES.slot_1],
+	[NODES.slot_1, NODES.bad_2],
+	[NODES.battle_1, NODES.slot_2],
+	[NODES.slot_2, NODES.shop_2],
+	[NODES.shop_2, NODES.jackpot],
+	[NODES.start, NODES.bad_1],
+	[NODES.bad_1, NODES.shop_1],
+	[NODES.bad_1, NODES.nothing_2],
+	[NODES.nothing_2, NODES.surprise],
+	[NODES.nothing_2, NODES.battle_2],
+	[NODES.shop_1, NODES.battle_2],
+	[NODES.shop_1, NODES.good_2],
+	[NODES.battle_2, NODES.good_2],
+	[NODES.good_2, NODES.slot_3],
+	[NODES.slot_3, NODES.shop_2],
+	[NODES.bad_2, NODES.slot_2],
+	[NODES.jackpot, NODES.start],
+	[NODES.nothing_1, NODES.slot_2],
+	[NODES.surprise, NODES.surprise],
 ]
 
 @onready var nils = $stats/nils
 @onready var paul = $stats/paul
 @onready var pia = $stats/pia
 
-@onready var nils_char = $stats/players/Garen
-@onready var paul_char = $stats/players/Kindred
-@onready var pia_char = $stats/players/Lulu
+@onready var nils_char = $players/Garen
+@onready var paul_char = $players/Kindred
+@onready var pia_char = $players/Lulu
+
+@onready var running = $running
+
+signal player_moved(target: NODES)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Game.stats_changed.connect(_on_stats_changed)
+	Game.next_turn.connect(func(): update_running())
 	update_stats()
+	update_running()
 
 	for button in get_node("buttons").get_children():
-		print(button.pressed)
-		button.pressed.connect(func(): _on_button_pressed(button.name))
+		button.pressed.connect(func(): _on_button_pressed(button))
 
 func _on_button_pressed(button):
-	print("button pressed: " + button)
-	Game.get_current_player().node = MOVE_NODES[button]
+	var target = NODES[button.name]
+	
+	if Game.current_phase != Game.PHASE.MOVE or is_move_allowed(Game.get_current_player(), target) == false:
+		return
+		
+	Game.get_current_player().node = target
+	Game.current_phase = Game.PHASE.ACTION
 	update_positions()
+	update_running()
+		
+	player_moved.emit(target)
 
 func _on_stats_changed():
 	pass
+	
+func is_move_allowed(player: Game.Player, target: NODES):
+	var current_pos = player.node
+	var allowed = false
+	for moves in MOVE_EDGES:
+		if moves[0] == current_pos and moves[1] == target:
+			allowed = true
+			
+	return allowed
+
+func update_running():
+	var current_player = Game.get_current_player()
+	
+	running.position = get_node("stats").get_node(current_player.name.to_lower()).position + Vector2(100, 40)
 
 func update_stats():
 	nils.get_node("money").text = str(Game.get_player("nils").money) + "$"
@@ -72,15 +100,14 @@ func update_stats():
 	paul.get_node("health").text = "health: " + str(Game.get_player("paul").health)
 
 func update_positions():
-	var nils_node = Game.get_player("nils").node
-	print(MOVE_NODES.keys()[nils_node])
-	var nils_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[nils_node])
-	nils_char.set_position(nils_node_pos.position)
+	var nils_data = Game.get_player("nils")
+	var nils_node_pos: Button = get_node("buttons").get_node(NODES.keys()[nils_data.node])
+	nils_char.set_position(nils_node_pos.position + nils_data.offset)
 
-	var paul_node = Game.get_player("paul").node
-	var paul_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[paul_node])
-	paul_char.set_position(paul_node_pos.position)
+	var paul_data = Game.get_player("paul")
+	var paul_node_pos = get_node("buttons").get_node(NODES.keys()[paul_data.node])
+	paul_char.set_position(paul_node_pos.position + paul_data.offset)
 
-	var pia_node = Game.get_player("pia").node
-	var pia_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[pia_node])
-	pia_char.set_position(pia_node_pos.position)
+	var pia_data = Game.get_player("pia")
+	var pia_node_pos = get_node("buttons").get_node(NODES.keys()[pia_data.node])
+	pia_char.set_position(pia_node_pos.position + pia_data.offset)

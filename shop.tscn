@@ -84,7 +84,7 @@ offset_top = -446.0
 offset_right = 700.0
 offset_bottom = -387.0
 
-[node name="Button" type="Button" parent="."]
+[node name="chest_button" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
 offset_left = -633.0
 offset_top = -323.0
@@ -97,4 +97,4 @@ offset_bottom = -193.0
 [connection signal="pressed" from="dunno_button" to="." method="_on_dunno_button_pressed"]
 [connection signal="pressed" from="wand_button" to="." method="_on_wand_button_pressed"]
 [connection signal="pressed" from="close_button" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="chest_button" to="." method="_on_chest_button_pressed"]

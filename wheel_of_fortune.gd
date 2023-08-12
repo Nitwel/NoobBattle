@@ -7,7 +7,19 @@ var options = [
 	{ "name": "Option 2", "chance": 0.2},
 	{ "name": "Option 3", "chance": 0.1},
 	{ "name": "Option 4", "chance": 0.4},
-]
+] :
+	get:
+		return options
+	set(value):
+		options = value
+		var totalChance = 0
+		for option in options:
+			totalChance += option.chance
+		for option in options:
+			option.chance /= totalChance
+		
+		wheel.update_labels()
+	
 
 
 var text_offset = 70
@@ -31,13 +43,18 @@ func _process(delta):
 		var option = get_option((360 + 90 - angle) % 360)
 
 		print(option)
+		
+		if option.has('callback'):
+			option.get('callback').call()
 
 		if option != null:
 			emit_signal('spin_finished', option.name)
 
 func spin():
+	if speed > 0: return
+	
 	is_spin_finished = false
-	speed = 20 + randf() * 20
+	speed = 20 + randf() * 40
 
 func get_option(angle):
 	var last_angle = 0.0

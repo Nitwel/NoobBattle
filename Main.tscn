@@ -21,8 +21,33 @@ position = Vector2(960, 540)
 visible = false
 position = Vector2(960, 540)
 
-[node name="wheel" parent="." instance=ExtResource("1_m6jcv")]
+[node name="good_wheel" parent="." instance=ExtResource("1_m6jcv")]
 visible = false
 position = Vector2(871, 453)
 
-[connection signal="spin_finished" from="wheel" to="." method="_on_wheel_spin_finished"]
+[node name="bad_wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
+position = Vector2(871, 453)
+
+[node name="battle_wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
+position = Vector2(871, 453)
+
+[node name="jackpot_wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
+position = Vector2(871, 453)
+
+[node name="slot_wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
+position = Vector2(871, 453)
+
+[node name="surprise_wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
+position = Vector2(871, 453)
+
+[connection signal="spin_finished" from="good_wheel" to="." method="_on_good_wheel_spin_finished"]
+[connection signal="spin_finished" from="bad_wheel" to="." method="_on_bad_wheel_spin_finished"]
+[connection signal="spin_finished" from="battle_wheel" to="." method="_on_battle_wheel_spin_finished"]
+[connection signal="spin_finished" from="jackpot_wheel" to="." method="_on_jackpot_wheel_spin_finished"]
+[connection signal="spin_finished" from="slot_wheel" to="." method="_on_slot_wheel_spin_finished"]
+[connection signal="spin_finished" from="surprise_wheel" to="." method="_on_surprise_wheel_spin_finished"]
