@@ -1,0 +1,340 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgny0rx5ay7mv"]
+
+[ext_resource type="Texture2D" uid="uid://6yq80r4kqr03" path="res://assets/map.png" id="1_ot2iy"]
+[ext_resource type="Script" path="res://map.gd" id="1_xweve"]
+[ext_resource type="Theme" uid="uid://bbta2oway6b0" path="res://assets/theme.tres" id="3_to34s"]
+[ext_resource type="Texture2D" uid="uid://byhakq8yjexoj" path="res://assets/lulu.png" id="4_dbiax"]
+[ext_resource type="Texture2D" uid="uid://ceo0ehpl1oat8" path="res://assets/garen.png" id="5_6k0u7"]
+[ext_resource type="Texture2D" uid="uid://dmkxty1uofn5j" path="res://assets/kindred.png" id="6_d3uih"]
+[ext_resource type="Texture2D" uid="uid://b107inniolwbg" path="res://assets/running.png" id="7_sfkt7"]
+
+[node name="map" type="Node2D"]
+script = ExtResource("1_xweve")
+
+[node name="Map" type="Sprite2D" parent="."]
+scale = Vector2(0.67, 0.67)
+texture = ExtResource("1_ot2iy")
+
+[node name="buttons" type="Node2D" parent="."]
+
+[node name="jackpot" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 18.0
+offset_top = -78.0
+offset_right = 226.0
+offset_bottom = 9.0
+
+[node name="shop_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 623.0
+offset_top = -466.0
+offset_right = 829.0
+offset_bottom = -358.0
+
+[node name="slot_3" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 712.0
+offset_top = -171.0
+offset_right = 919.0
+offset_bottom = -59.0
+
+[node name="slot_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 180.0
+offset_top = -447.0
+offset_right = 388.0
+offset_bottom = -333.0
+
+[node name="bad_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -308.0
+offset_top = -464.0
+offset_right = -100.0
+offset_bottom = -353.0
+
+[node name="surprise" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 670.0
+offset_top = 373.0
+offset_right = 876.0
+offset_bottom = 482.0
+
+[node name="battle_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 578.0
+offset_top = 156.0
+offset_right = 783.0
+offset_bottom = 268.0
+
+[node name="good_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 377.0
+offset_top = -75.0
+offset_right = 584.0
+offset_bottom = 34.0
+
+[node name="nothing_2" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 250.0
+offset_top = 374.0
+offset_right = 463.0
+offset_bottom = 483.0
+
+[node name="slot_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -624.0
+offset_top = -467.0
+offset_right = -411.0
+offset_bottom = -355.0
+
+[node name="nothing_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -243.0
+offset_top = -246.0
+offset_right = -38.0
+offset_bottom = -134.0
+
+[node name="shop_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 87.0
+offset_top = 138.0
+offset_right = 295.0
+offset_bottom = 253.0
+
+[node name="battle_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -571.0
+offset_top = -227.0
+offset_right = -364.0
+offset_bottom = -116.0
+
+[node name="bad_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -282.0
+offset_top = 352.0
+offset_right = -73.0
+offset_bottom = 465.0
+
+[node name="good_1" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -532.0
+offset_top = -16.0
+offset_right = -321.0
+offset_bottom = 96.0
+
+[node name="start" type="Button" parent="buttons"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -619.0
+offset_top = 279.0
+offset_right = -410.0
+offset_bottom = 374.0
+
+[node name="stats" type="Node2D" parent="."]
+
+[node name="nils" type="Control" parent="stats"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -935.0
+offset_top = -472.0
+offset_right = -670.0
+offset_bottom = -240.0
+
+[node name="name" type="Label" parent="stats/nils"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 29.0
+offset_right = 54.0
+offset_bottom = 68.0
+theme = ExtResource("3_to34s")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Nils"
+
+[node name="money" type="Label" parent="stats/nils"]
+layout_mode = 2
+offset_left = 173.0
+offset_top = 32.0
+offset_right = 241.0
+offset_bottom = 71.0
+text = "$100"
+
+[node name="speed" type="Label" parent="stats/nils"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 77.0
+offset_right = 136.0
+offset_bottom = 116.0
+text = "speed: 10"
+
+[node name="armor" type="Label" parent="stats/nils"]
+offset_left = 14.0
+offset_top = 113.0
+offset_right = 139.0
+offset_bottom = 152.0
+text = "armor: 10"
+
+[node name="damage" type="Label" parent="stats/nils"]
+offset_left = 10.0
+offset_top = 144.0
+offset_right = 159.0
+offset_bottom = 183.0
+text = "damage: 10"
+
+[node name="health" type="Label" parent="stats/nils"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 178.0
+offset_right = 162.0
+offset_bottom = 217.0
+text = "health: 100
+"
+
+[node name="Garen" type="Sprite2D" parent="stats/nils"]
+position = Vector2(221, 143)
+scale = Vector2(0.121094, 0.121094)
+texture = ExtResource("5_6k0u7")
+
+[node name="pia" type="Control" parent="stats"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -930.0
+offset_top = 18.0
+offset_right = -665.0
+offset_bottom = 250.0
+
+[node name="name" type="Label" parent="stats/pia"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 29.0
+offset_right = 54.0
+offset_bottom = 68.0
+theme = ExtResource("3_to34s")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Pia"
+
+[node name="money" type="Label" parent="stats/pia"]
+layout_mode = 2
+offset_left = 173.0
+offset_top = 32.0
+offset_right = 241.0
+offset_bottom = 71.0
+text = "$100"
+
+[node name="speed" type="Label" parent="stats/pia"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 77.0
+offset_right = 136.0
+offset_bottom = 116.0
+text = "speed: 10"
+
+[node name="armor" type="Label" parent="stats/pia"]
+offset_left = 14.0
+offset_top = 113.0
+offset_right = 139.0
+offset_bottom = 152.0
+text = "armor: 10"
+
+[node name="damage" type="Label" parent="stats/pia"]
+offset_left = 10.0
+offset_top = 144.0
+offset_right = 159.0
+offset_bottom = 183.0
+text = "damage: 10"
+
+[node name="health" type="Label" parent="stats/pia"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 178.0
+offset_right = 162.0
+offset_bottom = 217.0
+text = "health: 100
+"
+
+[node name="Lulu" type="Sprite2D" parent="stats/pia"]
+position = Vector2(214, 140)
+scale = Vector2(0.110352, 0.110352)
+texture = ExtResource("4_dbiax")
+
+[node name="paul" type="Control" parent="stats"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -936.0
+offset_top = -244.0
+offset_right = -671.0
+offset_bottom = -12.0
+
+[node name="name" type="Label" parent="stats/paul"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 29.0
+offset_right = 54.0
+offset_bottom = 68.0
+theme = ExtResource("3_to34s")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Paul"
+
+[node name="money" type="Label" parent="stats/paul"]
+layout_mode = 2
+offset_left = 173.0
+offset_top = 32.0
+offset_right = 241.0
+offset_bottom = 71.0
+text = "$100"
+
+[node name="speed" type="Label" parent="stats/paul"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 77.0
+offset_right = 136.0
+offset_bottom = 116.0
+text = "speed: 10"
+
+[node name="armor" type="Label" parent="stats/paul"]
+offset_left = 14.0
+offset_top = 113.0
+offset_right = 139.0
+offset_bottom = 152.0
+text = "armor: 10"
+
+[node name="damage" type="Label" parent="stats/paul"]
+offset_left = 10.0
+offset_top = 144.0
+offset_right = 159.0
+offset_bottom = 183.0
+text = "damage: 10"
+
+[node name="health" type="Label" parent="stats/paul"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 178.0
+offset_right = 162.0
+offset_bottom = 217.0
+text = "health: 100
+"
+
+[node name="Kindred" type="Sprite2D" parent="stats/paul"]
+position = Vector2(225, 157)
+scale = Vector2(0.109619, 0.109619)
+texture = ExtResource("6_d3uih")
+
+[node name="players" type="Node2D" parent="."]
+
+[node name="Lulu" type="Sprite2D" parent="players"]
+position = Vector2(-599, 266)
+scale = Vector2(0.157227, 0.157227)
+texture = ExtResource("4_dbiax")
+
+[node name="Garen" type="Sprite2D" parent="players"]
+position = Vector2(-510, 245)
+scale = Vector2(0.157227, 0.157227)
+texture = ExtResource("5_6k0u7")
+
+[node name="Kindred" type="Sprite2D" parent="players"]
+position = Vector2(-409, 271)
+scale = Vector2(0.149902, 0.149902)
+texture = ExtResource("6_d3uih")
+
+[node name="Running" type="Sprite2D" parent="."]
+position = Vector2(-855, -429)
+scale = Vector2(0.361538, 0.361538)
+texture = ExtResource("7_sfkt7")

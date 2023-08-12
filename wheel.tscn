@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5rlweioouf32"]
+
+[ext_resource type="Script" path="res://wheel_of_fortune.gd" id="1_e0m46"]
+[ext_resource type="Script" path="res://wheel.gd" id="2_owfn4"]
+[ext_resource type="Shader" path="res://dropshaddow.gdshader" id="2_xi51g"]
+[ext_resource type="Texture2D" uid="uid://u04wi08gk57q" path="res://assets/wheel.png" id="4_yyyab"]
+[ext_resource type="Texture2D" uid="uid://cxp6tkvajdmfr" path="res://assets/arrow.png" id="5_e8y7d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jldoa"]
+shader = ExtResource("2_xi51g")
+shader_parameter/radius = 6.0
+shader_parameter/modulate = Color(0, 0, 0, 0.513726)
+
+[node name="wheel_of_fortune" type="Node2D"]
+script = ExtResource("1_e0m46")
+speed = 0
+
+[node name="Wheel" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jldoa")
+position = Vector2(0, 65)
+texture = ExtResource("4_yyyab")
+
+[node name="wheel" type="Node2D" parent="."]
+script = ExtResource("2_owfn4")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+position = Vector2(328, -1)
+texture = ExtResource("5_e8y7d")
+
+[node name="Button" type="Button" parent="."]
+offset_left = -183.0
+offset_top = 338.0
+offset_right = 212.0
+offset_bottom = 467.0
+theme_override_font_sizes/font_size = 50
+text = "Spin"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://do4du1d5m67kd"]
+
+[ext_resource type="PackedScene" uid="uid://c5rlweioouf32" path="res://wheel.tscn" id="1_m6jcv"]
+[ext_resource type="Script" path="res://Main.gd" id="1_ncy21"]
+[ext_resource type="PackedScene" uid="uid://fbbo55pjqr5r" path="res://shop.tscn" id="4_1o13n"]
+[ext_resource type="PackedScene" uid="uid://bgny0rx5ay7mv" path="res://map.tscn" id="4_563t5"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_ncy21")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 719.0
+offset_top = 302.0
+offset_right = 759.0
+offset_bottom = 325.0
+
+[node name="map" parent="." instance=ExtResource("4_563t5")]
+position = Vector2(960, 540)
+
+[node name="shop" parent="." instance=ExtResource("4_1o13n")]
+visible = false
+position = Vector2(960, 540)
+
+[node name="wheel" parent="." instance=ExtResource("1_m6jcv")]
+position = Vector2(871, 453)
+
+[connection signal="spin_finished" from="wheel" to="." method="_on_wheel_spin_finished"]
