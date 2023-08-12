@@ -45,6 +45,7 @@ func _on_player_moved(target: Map.NODES):
 
 func _on_finished_shopping():
 	Game.do_next_turn()
+	shop.visible = false
 	
 func update_good_wheel():
 	var player = Game.get_current_player()
