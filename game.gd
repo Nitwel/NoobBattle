@@ -1,9 +1,9 @@
 extends Node
 
 var players = [
-	Player.new("Nils"),
-	Player.new("Paul"),
-	Player.new("Pia"),
+	Player.new("Nils", Vector2(0, 0)),
+	Player.new("Paul", Vector2(0, 0)),
+	Player.new("Pia", Vector2(0, 0)),
 ]
 var turn = 0
 
@@ -22,6 +22,9 @@ func get_player(player_name: String):
 			return player
 	return null
 
+func get_current_player():
+	return players[turn]
+
 class Player:
 	var name: String
 	var money: int
@@ -29,13 +32,15 @@ class Player:
 	var armor: int
 	var damage: int
 	var health: int
-	var position: Map.MOVE_NODES
+	var node: Map.MOVE_NODES
+	var offset: Vector2
 
-	func _init(player_name: String):
+	func _init(player_name: String, offset: Vector2):
 		self.name = player_name
 		self.money = 0
 		self.speed = 10
 		self.armor = 20
 		self.damage = 10
 		self.health = 100
-		self.position = Map.MOVE_NODES.start
+		self.node = Map.MOVE_NODES.start
+		self.offset = offset

@@ -31,10 +31,23 @@ var MOVE_EDGES = [
 @onready var paul = $stats/paul
 @onready var pia = $stats/pia
 
+@onready var nils_char = $stats/players/Garen
+@onready var paul_char = $stats/players/Kindred
+@onready var pia_char = $stats/players/Lulu
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Game.stats_changed.connect(_on_stats_changed)
 	update_stats()
+
+	for button in get_node("buttons").get_children():
+		print(button.pressed)
+		button.pressed.connect(func(): _on_button_pressed(button.name))
+
+func _on_button_pressed(button):
+	print("button pressed: " + button)
+	Game.get_current_player().node = MOVE_NODES[button]
+	update_positions()
 
 func _on_stats_changed():
 	pass
@@ -57,3 +70,17 @@ func update_stats():
 	paul.get_node("armor").text = "armor: " + str(Game.get_player("paul").armor)
 	paul.get_node("damage").text = "damage: " + str(Game.get_player("paul").damage)
 	paul.get_node("health").text = "health: " + str(Game.get_player("paul").health)
+
+func update_positions():
+	var nils_node = Game.get_player("nils").node
+	print(MOVE_NODES.keys()[nils_node])
+	var nils_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[nils_node])
+	nils_char.set_position(nils_node_pos.position)
+
+	var paul_node = Game.get_player("paul").node
+	var paul_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[paul_node])
+	paul_char.set_position(paul_node_pos.position)
+
+	var pia_node = Game.get_player("pia").node
+	var pia_node_pos = get_node("buttons").get_node(MOVE_NODES.keys()[pia_node])
+	pia_char.set_position(pia_node_pos.position)

@@ -22,6 +22,7 @@ visible = false
 position = Vector2(960, 540)
 
 [node name="wheel" parent="." instance=ExtResource("1_m6jcv")]
+visible = false
 position = Vector2(871, 453)
 
 [connection signal="spin_finished" from="wheel" to="." method="_on_wheel_spin_finished"]
